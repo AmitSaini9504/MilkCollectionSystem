@@ -2,16 +2,87 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.print.PrinterException;
 import java.awt.PrintJob;
-
-
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class UserPanel extends javax.swing.JFrame {
     
-    //for clear data 
     
+    
+    
+    public static String heading(){
+        
+           Date now = new Date();
+        SimpleDateFormat DT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        String formattedDateTime = DT.format(now);
+        
+        
+        String put = "\n"
+                + "--------------------------4032 - Fresh Milk Collection------------------------" + "\n\n" + "Address : Village Chomu, Jaipur ,Rajasthan 304505" + "\n"
+
+                + "Contact No. - 7300440421" + "\n" + "Date & Time " + formattedDateTime + "\n\n" +
+                "------------"
+                + "------------------Customer Summary----------------------------";
+               
+
+        return put;
+    }
+    
+    
+    public void Data()
+    {
+     String customerCode = CustomerCode.getText();
+    String selectedShift = (String) shift.getSelectedItem();
+    String qtyStr = Qty.getText();
+    String fatStr = Fat.getText();
+    
+    
+    if (customerCode.isEmpty() || qtyStr.isEmpty() || fatStr.isEmpty()) {
+            JOptionPane.showMessageDialog(UserPanel.this, "Please fill in all details.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+              
+    }
+    
+     try {
+        // Parse input values
+        int qty = Integer.parseInt(qtyStr);
+        float fat = Float.parseFloat(fatStr);
+        float calculatedPrice = fat * 6;
+        float calculatedAmount = qty * calculatedPrice;
+        
+
+        price1.setText(String.valueOf(calculatedPrice));
+        Amount1.setText(String.valueOf(calculatedAmount));
+        
+          
+        // Append details to the TextArea
+        
+          TextArea.append(UserPanel.heading());
+        
+        TextArea.append("\nCustomer Code: " + customerCode
+                + "\nShift: " + selectedShift
+                + "\nQty: " + qty
+                + "\nFat: " + fat
+                + "\nPrice: " + calculatedPrice
+                + "\nAmount: " + calculatedAmount
+                +"\n------------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n\t\t Thank You....."
+                
+                 );
+        
+         // Clear input fields for new data entry
+         
+       
+        
+       
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    
+        
+    
+    
+    }
    
     
 
@@ -19,17 +90,7 @@ public class UserPanel extends javax.swing.JFrame {
     public UserPanel() {
         initComponents();
         
-         Date now = new Date();
-        SimpleDateFormat DT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String formattedDateTime = DT.format(now);
         
-            
-       TextArea.setText("\n"
-                +"--------------------------4032 - Fresh Milk Collection------------------------"+"\n\n"+"Address : Village Chomu, Jaipur ,Rajasthan 304505"+"\n"
-                
-                +"Contact No. - 7300440421"+"\n"+"Date & Time "+formattedDateTime + "\n\n"+
-                        "------------"
-                        + "------------------Customer Summary----------------------------");
        
         
         
@@ -344,51 +405,7 @@ public class UserPanel extends javax.swing.JFrame {
     private void AddDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddDataActionPerformed
         // TODO add your handling code here:
         
-        String customerCode = CustomerCode.getText();
-    String selectedShift = (String) shift.getSelectedItem();
-    String qtyStr = Qty.getText();
-    String fatStr = Fat.getText();
-    
-      if (customerCode.isEmpty() || qtyStr.isEmpty() || fatStr.isEmpty()) {
-            JOptionPane.showMessageDialog(UserPanel.this, "Please fill in all details.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-              
-    }
-     try {
-        // Parse input values
-        int qty = Integer.parseInt(qtyStr);
-        float fat = Float.parseFloat(fatStr);
-        float calculatedPrice = fat * 6;
-        float calculatedAmount = qty * calculatedPrice;
-        
-
-        price1.setText(String.valueOf(calculatedPrice));
-        Amount1.setText(String.valueOf(calculatedAmount));
-        
-          
-        // Append details to the TextArea
-        
-
-        
-        TextArea.append("\nCustomer Code: " + customerCode
-                + "\nShift: " + selectedShift
-                + "\nQty: " + qty
-                + "\nFat: " + fat
-                + "\nPrice: " + calculatedPrice
-                + "\nAmount: " + calculatedAmount
-                +"\n------------------------------------------------------------------\n\n\n\n\n\n\n\n\n\n\t\t Thank You....."
-                
-                 );
-        
-         // Clear input fields for new data entry
-         
-       
-        
-       
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Please enter valid numeric values.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    
+            Data();
     
         
     }//GEN-LAST:event_AddDataActionPerformed
@@ -396,9 +413,28 @@ public class UserPanel extends javax.swing.JFrame {
     private void printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printActionPerformed
         // TODO add your handling code here:
         
+        
+        
              
+       UserPanel panel = new UserPanel();
+       panel.add(TextArea);
+       panel.add(print);
+       
+       TextArea.add(panel);
        
        
+       //frame size
+       TextArea.setSize(400,300);
+       
+       TextArea.setVisible(true);
+       
+      String TextToPrint = TextArea.getText();
+      
+        System.out.println(TextToPrint);
+       
+       
+       
+        
         
         
     }//GEN-LAST:event_printActionPerformed
@@ -408,18 +444,8 @@ public class UserPanel extends javax.swing.JFrame {
         
        TextArea.setText("");
        
-        Date now = new Date();
-        SimpleDateFormat DT = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        String formattedDateTime = DT.format(now);
-        
-            
-       TextArea.setText("\n"
-                +"--------------------------4032 - Fresh Milk Collection------------------------"+"\n\n"+"Address : Village Chomu, Jaipur ,Rajasthan 304505"+"\n"
-                
-                +"Contact No. - 7300440421"+"\n"+"Date & Time "+formattedDateTime + "\n\n"+
-                        "------------"
-                        + "------------------Customer Summary----------------------------");
        
+       TextArea.append(UserPanel.heading());
         
         
         
@@ -458,11 +484,7 @@ public class UserPanel extends javax.swing.JFrame {
         
       
         
-         // Clear input fields for new data entry
-         
-        
-        
-        
+         // Clear input fields 
          
         
        
@@ -479,7 +501,6 @@ public class UserPanel extends javax.swing.JFrame {
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
 
 
-
  Date now = new Date();
    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -488,7 +509,7 @@ public class UserPanel extends javax.swing.JFrame {
         
         
         
-        String customerCode = CustomerCode.getText();
+    String customerCode = CustomerCode.getText();
     String selectedShift = (String) shift.getSelectedItem();
     String qtyStr = Qty.getText();
     String fatStr = Fat.getText();
@@ -508,7 +529,7 @@ public class UserPanel extends javax.swing.JFrame {
 
         price1.setText(String.valueOf(calculatedPrice));
         Amount1.setText(String.valueOf(calculatedAmount));
-        
+       
           
         // Append details to the TextArea
         
