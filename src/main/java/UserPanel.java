@@ -1,9 +1,13 @@
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.awt.print.PrinterException;
-import java.awt.PrintJob;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+
 
 public class UserPanel extends javax.swing.JFrame {
     
@@ -84,15 +88,14 @@ public class UserPanel extends javax.swing.JFrame {
     
     }
    
-    
+        Connection con;
+        
 
 
     public UserPanel() {
         initComponents();
         
-        
        
-        
         
         
         
@@ -128,7 +131,7 @@ public class UserPanel extends javax.swing.JFrame {
         Qty = new javax.swing.JTextField();
         AddData = new javax.swing.JButton();
         Save = new javax.swing.JButton();
-        Clear = new javax.swing.JButton();
+        printData = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -214,6 +217,11 @@ public class UserPanel extends javax.swing.JFrame {
         jCheckBox1.setBackground(new java.awt.Color(199, 233, 176));
         jCheckBox1.setForeground(new java.awt.Color(68, 104, 48));
         jCheckBox1.setText("Yes ");
+        jCheckBox1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jCheckBox1MouseMoved(evt);
+            }
+        });
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox1ActionPerformed(evt);
@@ -247,7 +255,7 @@ public class UserPanel extends javax.swing.JFrame {
 
         AddData.setBackground(new java.awt.Color(63, 90, 17));
         AddData.setForeground(new java.awt.Color(255, 255, 255));
-        AddData.setText("Process Data ");
+        AddData.setText("Generate Recipt");
         AddData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddDataActionPerformed(evt);
@@ -263,12 +271,12 @@ public class UserPanel extends javax.swing.JFrame {
             }
         });
 
-        Clear.setBackground(new java.awt.Color(63, 90, 17));
-        Clear.setForeground(new java.awt.Color(255, 255, 255));
-        Clear.setText("Clear");
-        Clear.addActionListener(new java.awt.event.ActionListener() {
+        printData.setBackground(new java.awt.Color(63, 90, 17));
+        printData.setForeground(new java.awt.Color(255, 255, 255));
+        printData.setText("PrintData");
+        printData.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearActionPerformed(evt);
+                printDataActionPerformed(evt);
             }
         });
 
@@ -320,7 +328,7 @@ public class UserPanel extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Save, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Clear, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(printData, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -382,7 +390,7 @@ public class UserPanel extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(AddData)
                     .addComponent(Save)
-                    .addComponent(Clear))
+                    .addComponent(printData))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
@@ -414,43 +422,45 @@ public class UserPanel extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         
+        try
+        {
+            TextArea.print();
+        }
+        catch(Exception e)
+                {
+                    
+                }
         
-             
-       UserPanel panel = new UserPanel();
-       panel.add(TextArea);
-       panel.add(print);
+        //clear data
+        TextArea.setText("");
        
-       TextArea.add(panel);
-       
-       
-       //frame size
-       TextArea.setSize(400,300);
-       
-       TextArea.setVisible(true);
-       
-      String TextToPrint = TextArea.getText();
-      
-        System.out.println(TextToPrint);
-       
-       
-       
+        
+        
+        
         
         
         
     }//GEN-LAST:event_printActionPerformed
 
-    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+    private void printDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printDataActionPerformed
         // TODO add your handling code here:
         
-       TextArea.setText("");
        
+        try
+        {
+            Table.print();
+        }
+        catch(Exception e)
+                {
+                    
+                }
+        
+        //clear data
+        
        
-       TextArea.append(UserPanel.heading());
-        
-        
         
      
-    }//GEN-LAST:event_ClearActionPerformed
+    }//GEN-LAST:event_printDataActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
         // TODO add your handling code here:
@@ -565,6 +575,10 @@ public class UserPanel extends javax.swing.JFrame {
          
     }//GEN-LAST:event_SaveActionPerformed
 
+    private void jCheckBox1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox1MouseMoved
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -600,7 +614,6 @@ public class UserPanel extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddData;
     private javax.swing.JTextField Amount1;
-    private javax.swing.JButton Clear;
     private javax.swing.JTextField CustomerCode;
     private javax.swing.JTextField Fat;
     private javax.swing.JTextField Qty;
@@ -622,6 +635,7 @@ public class UserPanel extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField price1;
     private javax.swing.JButton print;
+    private javax.swing.JButton printData;
     private javax.swing.JComboBox<String> shift;
     // End of variables declaration//GEN-END:variables
 

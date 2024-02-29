@@ -99,7 +99,7 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="Save" min="-2" pref="72" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="Clear" min="-2" pref="72" max="-2" attributes="0"/>
+                          <Component id="printData" min="-2" pref="72" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -184,7 +184,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="AddData" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="Save" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Clear" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="printData" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="73" max="32767" attributes="0"/>
               </Group>
@@ -437,6 +437,7 @@
             <Property name="text" type="java.lang.String" value="Yes "/>
           </Properties>
           <Events>
+            <EventHandler event="mouseMoved" listener="java.awt.event.MouseMotionListener" parameters="java.awt.event.MouseEvent" handler="jCheckBox1MouseMoved"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
           </Events>
         </Component>
@@ -533,7 +534,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Process Data "/>
+            <Property name="text" type="java.lang.String" value="Generate Recipt"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddDataActionPerformed"/>
@@ -553,7 +554,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SaveActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Clear">
+        <Component class="javax.swing.JButton" name="printData">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="11" green="5a" red="3f" type="rgb"/>
@@ -561,10 +562,10 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Clear"/>
+            <Property name="text" type="java.lang.String" value="PrintData"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ClearActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="printDataActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
